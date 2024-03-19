@@ -21,6 +21,9 @@ public class UserService  { // chama user service pq e uma camada de serviço on
         Optional<User> obj = repository.findById(id);
         return obj.get();
     }
+    public User insert(User obj){
+        return repository.save(obj);
+    }
 
 
 
