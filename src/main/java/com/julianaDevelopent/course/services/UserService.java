@@ -3,7 +3,6 @@ package com.julianaDevelopent.course.services;
 import com.julianaDevelopent.course.entities.User;
 import com.julianaDevelopent.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +22,9 @@ public class UserService  { // chama user service pq e uma camada de serviço on
     }
     public User insert(User obj){
         return repository.save(obj);
+    }
+    public void delete(Long id){
+        repository.deleteById(id);
     }
 
 
