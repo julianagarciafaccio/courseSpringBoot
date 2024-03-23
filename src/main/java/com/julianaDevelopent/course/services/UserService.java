@@ -4,6 +4,7 @@ import com.julianaDevelopent.course.entities.User;
 import com.julianaDevelopent.course.repositories.UserRepository;
 import com.julianaDevelopent.course.services.exceptions.DatabaseException;
 import com.julianaDevelopent.course.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -37,9 +38,14 @@ public class UserService  { // chama user service pq e uma camada de serviço on
         }
     }
     public User update(Long id , User obj){
-        User entity = repository.getReferenceById(id);
-        updateDate(entity , obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);
+            updateDate(entity , obj);
+            return repository.save(entity);
+        }  catch (EntityNotFoundException e){
+            e.printStackTrace();
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateDate(User entity, User obj) {
